@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aaa
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: bbb
+  template:
+    metadata:
+      labels:
+        app: bbb
+    spec:
+      containers:
+        - name: main
+          image: ondrejsika/training-example
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8000
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 20m
+              memory: 20Mi
