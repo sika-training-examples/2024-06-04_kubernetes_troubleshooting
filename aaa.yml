@@ -6,11 +6,11 @@ spec:
   replicas: 4
   selector:
     matchLabels:
-      app: bbb
+      app: aaa
   template:
     metadata:
       labels:
-        app: bbb
+        app: aaa
     spec:
       containers:
         - name: main

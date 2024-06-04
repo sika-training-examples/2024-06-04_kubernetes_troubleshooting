@@ -1,26 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ddd
+  name: fff
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: ddd
+      app: fff
   template:
     metadata:
       labels:
-        app: ddd
+        app: fff
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example-dhl
+          image: ondrejsika/training-example
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8000
           ports:
             - containerPort: 80
           resources:
             requests:
               cpu: 10m
-              memory: 10Mi
+              memory: 1Mi
             limits:
               cpu: 20m
-              memory: 20Mi
+              memory: 2Mi

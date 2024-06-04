@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ccc
+  name: eee
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: ccc
+      app: eee
   template:
     metadata:
       labels:
-        app: ccc
+        app: eee
     spec:
       containers:
         - name: main
