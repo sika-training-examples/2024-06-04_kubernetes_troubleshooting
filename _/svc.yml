@@ -1,26 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ccc
+  name: aaa
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: ccc
+      app: aaa
   template:
     metadata:
       labels:
-        app: ccc
+        app: aaa
+        svc: troubleshoot
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example
+          image: dhltraining.azurecr.io/ondrejsika/training-example
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8000
           ports:
             - containerPort: 80
           resources:
             requests:
               cpu: 10m
-              memory: 10Gi
+              memory: 10Mi
             limits:
               cpu: 20m
-              memory: 20Gi
+              memory: 20Mi

@@ -1,26 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bbb
+  name: test02
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: bbb
+      app: test02
   template:
     metadata:
       labels:
-        app: bbb
+        app: test02
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example
-          readinessProbe:
+          image: dhltraining.azurecr.io/ondrejsika/training-example
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: '8000'
+          livenessProbe:
             httpGet:
               path: /livez
-              port: 8000
-          ports:
-            - containerPort: 80
+              port: 80
           resources:
             requests:
               cpu: 10m

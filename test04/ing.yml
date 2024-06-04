@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test04
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - test04.dhltest.sld1.uk
+      secretName: test04.dhltest.sld1.uk-tls
+  rules:
+    - host: test04.dhltest.sld1.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test04
+                port:
+                  number: 80

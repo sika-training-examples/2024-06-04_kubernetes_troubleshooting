@@ -1,26 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aaa
+  name: test06
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: aaa
+      app: test06
   template:
     metadata:
       labels:
-        app: aaa
+        app: test06
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example
-          livenessProbe:
-            httpGet:
-              path: /livez
-              port: 8000
+          image: dhltraining.azurecr.io/ondrejsika/training-example
           ports:
-            - containerPort: 80
+            - containerPort: 8001
+          env:
+            - name: PORT
+              value: '8001'
+            - name: PORT_METRICS
+              value: '8001'
           resources:
             requests:
               cpu: 10m

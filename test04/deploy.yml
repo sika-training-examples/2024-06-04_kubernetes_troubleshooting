@@ -1,27 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eee
+  name: test04
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: eee
+      app: test04
   template:
     metadata:
       labels:
-        app: eee
+        app: test04
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example
+          image: dhltraining.azurecr.io/ondrejsika/training-example
+          ports:
+            - containerPort: 8000
           env:
             - name: PORT
-              value: '80'
-            - name: PORT_METRICS
-              value: '80'
-          ports:
-            - containerPort: 80
+              value: '8000'
+          readinessProbe:
+            httpGet:
+              path: /livez
+              port: 80
           resources:
             requests:
               cpu: 10m

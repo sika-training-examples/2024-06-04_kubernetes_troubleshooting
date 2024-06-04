@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test05
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: test05
+  template:
+    metadata:
+      labels:
+        app: test05
+    spec:
+      nodeSelector:
+        topology.kubernetes.io/zone: '99'
+      containers:
+        - name: main
+          image: dhltraining.azurecr.io/ondrejsika/training-example
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: '8000'
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Gi
+            limits:
+              cpu: 20m
+              memory: 20Gi

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aaa
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: aaa
+  template:
+    metadata:
+      labels:
+        app: aaa
+        svc: troubleshoot
+    spec:
+      containers:
+        - name: main
+          image: dhltraining.azurecr.io/ondrejsika/training-example
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 80
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: '8000'
+          resources:
+            requests:
+              cpu: 10m
+              memory: 10Mi
+            limits:
+              cpu: 20m
+              memory: 20Mi

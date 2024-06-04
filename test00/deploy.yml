@@ -1,22 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ddd
+  name: test00
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: ddd
+      app: test00
   template:
     metadata:
       labels:
-        app: ddd
+        app: test00
     spec:
       containers:
         - name: main
-          image: ondrejsika/training-example-dhl
+          image: dhltraining.azurecr.io/ondrejsika/training-example
           ports:
-            - containerPort: 80
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: '8000'
           resources:
             requests:
               cpu: 10m
